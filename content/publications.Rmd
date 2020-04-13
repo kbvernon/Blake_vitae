@@ -1,0 +1,54 @@
+
+<br>
+
+## Publications 
+
+#### _Peer-reviewed journal articles_
+
+```{r}
+
+bib %>% 
+  filter(groups == "article") %>% 
+  mutate(ref = glue::glue(
+    
+    "{author} ({date}). {title}. _{journaltitle}_ {volume} ({number}): {pages}. DOI: {doi} <br><br>"
+    
+    )) %>% 
+  select(date, ref) %>% 
+  cv_kable(bib = TRUE)
+
+```
+
+#### _Book reviews_
+
+```{r}
+
+bib %>%
+  filter(groups == "review") %>%
+  mutate(ref = glue::glue(
+    
+    "{author} ({date}). {title}. _{journaltitle}_ {volume} ({number}): {pages}. DOI: {doi} <br><br>"
+    
+    )) %>% 
+  select(date, ref) %>% 
+  cv_kable(bib = TRUE)
+
+```
+
+<br>
+
+#### _Technical reports_
+
+```{r}
+
+bib %>% 
+  filter(groups == "report") %>% 
+  mutate(ref = glue::glue(
+    
+    "{author} ({date}). {title}. {note}. <br><br>"
+    
+    )) %>% 
+  select(date, ref) %>% 
+  cv_kable(bib = TRUE)
+
+```

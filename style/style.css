@@ -1,0 +1,142 @@
+
+/* import font type */
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+
+/* import icons */
+@import url("https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css");
+
+@import url("https://use.fontawesome.com/releases/v5.7.2/css/all.css");
+
+
+@page{
+  size: A4 portrait;
+}
+
+body {
+    font-family: "Raleway";
+    font-size: 12px;
+    color: #333;
+    background-color: #fff;
+}
+
+:root{
+  --page-width: 8.5in;
+  --pagedjs-margin-right:  1.25in;
+  --pagedjs-margin-left:   1.25in;
+  --pagedjs-margin-top:    0.75in;
+  --pagedjs-margin-bottom: 1.00in;
+  --root-font-size: 10pt;
+  --viewer-pages-spacing: 12px;
+  --viewer-shadow-color: #313131; /* this marks the pages */
+}
+
+/* Paged.js viewer */
+@media screen {
+  body {
+    background-color: var(--viewer-background-color);
+    margin: 0; /* for mobile */
+    width: calc(var(--pagedjs-width) + 2 * var(--viewer-pages-spacing)); /* for mobile */
+  }
+   .pagedjs_pages {
+    max-width: var(--pagedjs-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+   .pagedjs_page {
+    box-shadow: 0 0 calc(0.66667 * var(--viewer-pages-spacing)) var(--viewer-shadow-color);
+    margin: var(--viewer-pages-spacing) 0;
+  }
+}
+
+@media screen and (min-width: 8.5in) {
+  /* not a mobile */
+  body {
+    margin: auto;
+    width: unset;
+  }
+}
+
+
+table {
+  width: 100%;
+}
+
+
+
+tr {
+  break-inside: avoid;
+}
+
+
+/* create ability to insert pagebreaks with br.pagebreak */
+br.pageBreak {
+    page-break-after: always;
+}
+
+/* add hline to section header */
+h2 {
+  border-bottom: 1px solid #858585;
+  padding-bottom: 0.5px;
+}
+
+
+#profile {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#address {
+  width: 50%;
+  margin-right: auto;
+  vertical-align: top;
+  text-align: left;
+}
+
+#social {
+  width: 50%;
+  margin-left: auto;
+  vertical-align: top;
+  text-align: right;
+}
+
+
+/* style hyperlinks */
+a {
+  color: #CC0000;
+  text-decoration: none;
+}
+
+
+/* r markdown title */
+h1.title {
+  font-family: "Raleway";
+  font-weight: 300;
+  font-size: 38px;
+  margin-bottom: 2px;
+  padding-bottom: 2px;
+}
+
+
+/* don't make page breaks inside an entry */
+tr {
+  break-inside: avoid;
+}
+
+
+/****** Page numbers ******/
+@page {
+  @top-left {
+    content: none;
+  }
+  @top-right {
+    content: none;
+  }
+  @bottom-center {
+    content: counter(page);
+  }
+}
+.pagedjs_margin.pagedjs_margin-bottom-right.hasContent {
+  align-items: baseline;
+}

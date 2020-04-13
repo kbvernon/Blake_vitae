@@ -1,0 +1,14 @@
+
+<br><br><br><br><br>
+
+## Presentations
+
+```{r}
+
+bib %>% 
+  filter(groups == "presentation") %>% 
+  mutate(ref = glue::glue("{author} ({date}). {title}. _{note}_, {location}<br><br>")) %>% 
+  select(date, ref) %>% 
+  cv_kable(bib = TRUE)
+  
+```

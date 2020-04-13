@@ -1,0 +1,14 @@
+
+<br>
+
+## Professional Affiliations
+
+```{r}
+
+read.csv(here("data/affiliations.csv"), stringsAsFactors = FALSE) %>% 
+  mutate(x = glue::glue("<a href='{url}'>{organization}</a>"), 
+         y = glue::glue("{start}-{end}")) %>% 
+  select(x, y) %>% 
+  cv_kable()
+
+```

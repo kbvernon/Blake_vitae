@@ -1,0 +1,19 @@
+
+<br>
+
+## Teaching
+
+_Teaching interests_:  
+
+<div style = "text-align: justify; text-justify: inter-word;">
+Behavioral Ecology, Human Ecology, Human Prehistory, Hunter-Gatherers, Conservation \& Sustainability, Ethnoarchaeology, GIS/Spatial Analysis, Quantitative Data Analysis, Archaeological Method \& Theory, North American Prehistory  
+</div>
+
+_University of Utah, Department of Anthropology_:  
+
+```{r, results = "asis"}
+
+read.csv(here::here("data/teaching.csv"), stringsAsFactors = FALSE) %>% 
+  glue::glue_data("* {x} <br>", x = unique(course))
+
+```

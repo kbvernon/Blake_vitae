@@ -1,0 +1,14 @@
+
+<br>
+
+## Education
+
+```{r}
+
+read.csv(here("data/education.csv"), stringsAsFactors = FALSE) %>% 
+  mutate(x = glue::glue("<b>{university}</b><br>{degree} in {major}"), 
+         y = glue::glue("{location}<br>{end}")) %>% 
+  select(x, y) %>% 
+  cv_kable()
+
+```

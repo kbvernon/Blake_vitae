@@ -1,0 +1,106 @@
+---
+title: "Kenneth Blake Vernon"
+output: 
+  pagedown::html_paged:
+    self_contained: true
+    css: style/style.css
+    number_sections: false
+knit: pagedown::chrome_print
+params:
+  appointments: TRUE
+  education: TRUE
+  publications: TRUE
+  funding: TRUE
+  teaching: TRUE
+  presentations: TRUE 
+  fieldwork: FALSE
+  outreach: FALSE
+  affiliations: TRUE
+  committees: FALSE
+---
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning = FALSE, 
+                      message = FALSE)
+
+library(glue)
+library(here)
+library(icon)
+library(kableExtra)
+library(knitr)
+library(RefManageR)
+library(tidyverse)
+
+options(knitr.kable.NA = "")
+
+```
+
+```{r}
+
+source(here("style/blake_cv_style.R"))
+
+```
+
+```{r}
+
+bib <- RefManageR::ReadBib(here("data/my_bibliography.bib"))
+bib <- cv_table(bib)
+
+```
+
+<div id = "profile">
+  <div id = "address">
+Department of Anthropology  
+University of Utah  
+260 Central Campus Drive  
+Salt Lake City, UT 84112  
+(801) 581-6252  
+<a href="https://faculty.utah.edu/~kbvernon">faculty.utah.edu/~kbvernon</a>
+  </div>
+  <div id = "social">
+```{r}
+
+read.csv(here("data/social.csv"), stringsAsFactors = FALSE) %>% 
+  mutate(x = glue::glue("<a href={url}>{id}</a>"),
+         y = glue::glue("<i class='{icon}-{organization}'></i><br>")) %>% 
+  select(x, y) %>% 
+  kable(format = "html", 
+        escape = FALSE, 
+        col.names = NULL, 
+        align = c("r", "r"))
+
+```
+  </div>
+</div>
+
+```{r, child = if(params$appointments) here("content/appointments.Rmd")}
+```
+
+```{r, child = if(params$education) here("content/education.Rmd")}
+```
+
+```{r, child = if(params$publications) here("content/publications.Rmd")}
+```
+
+```{r, child = if(params$funding) here("content/funding.Rmd")}
+```
+
+```{r, child = if(params$teaching) here("content/teaching.Rmd")}
+```
+
+```{r, child = if(params$presentations) here("content/presentations.Rmd")}
+```
+
+```{r, child = if(params$fieldwork) here("content/fieldwork.Rmd")}
+```
+
+```{r, child = if(params$outreach) here("content/outreach.Rmd")}
+```
+
+```{r, child = if(params$affiliations) here("content/affiliations.Rmd")}
+```
+
+```{r, child = if(params$committees) here("content/committees.Rmd")}
+```
