@@ -37,8 +37,6 @@ bib %>%
 
 ```
 
-<br>
-
 #### _Technical reports_
 
 ```{r}
