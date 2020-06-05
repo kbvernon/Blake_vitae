@@ -1,27 +1,39 @@
 
-cv_table <- function(x, format){
+cv_bibble <- function(zotero, collection){
   
-  names <- map_chr(x, function(x){ paste(x$author, collapse = ", ") })
+  bib_collections <- list()
   
-  dplyr::as_tibble(x) %>%
-    mutate(author = names,
-           title = case_when(is.na(url) ~ title,
-                             TRUE ~ paste0("<a href='", url, "' target = '_blank'>", title, "</a>"))) %>% 
-    arrange(desc(date))
-
+  for(i in 1:nrow(collection)){
+    
+    bib_col <- RefManageR::ReadZotero(user = zotero$id,
+                                      .params = list(key = zotero$key,
+                                                     collection = collection[i, "id"]))
+    
+    bib_col <- as_tibble(bib_col)
+    
+    bib_col$groups <- collection[i, "collection"]
+    
+    bib_collections[[i]] <- bib_col
+    
+  }
+  
+  bib_collections %>%
+    bind_rows() %>% 
+    mutate(author = stringr::str_replace_all(author, 
+                                             pattern = " and ", 
+                                             replacement = ", "),
+           title = stringr::str_remove_all(title, pattern = "[{}]"),
+           shorttitle = stringr::str_remove_all(shorttitle, pattern = "[{}]")) %>% 
+    mutate(title = if_else(is.na(url), 
+                           title,
+                           paste0("<a href='", url, "' target = '_blank'>", title, "</a>"))) %>% 
+    arrange(desc(year))
+  
 }
 
+
+
 cv_kable <- function(x, bib = FALSE){
-  
-  align <- c("l", "r")
-  
-  col1_css <- paste0("border: 0 solid transparent; ",
-                     "padding: 8px 0; ",
-                     "text-align: left;")
-  
-  col2_css <- paste0("border: 0 solid transparent; ",
-                     "padding: 8px 0; ",
-                     "text-align: right;")
   
   if(bib){
     
@@ -35,6 +47,18 @@ cv_kable <- function(x, bib = FALSE){
                        "padding: 0 0 0 12px; ",
                        "text-align: justify; ",
                        "text-justify: inter-word;")
+    
+  } else {
+    
+    align <- c("l", "r")
+    
+    col1_css <- paste0("border: 0 solid transparent; ",
+                       "padding: 8px 0; ",
+                       "text-align: left;")
+    
+    col2_css <- paste0("border: 0 solid transparent; ",
+                       "padding: 8px 0; ",
+                       "text-align: right;")
     
   }
   

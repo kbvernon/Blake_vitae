@@ -27,7 +27,8 @@ knitr::opts_chunk$set(echo = FALSE,
 
 library(glue)
 library(here)
-library(icon)
+library(icon) # github only (ropenscilabs)
+library(jsonlite)
 library(kableExtra)
 library(knitr)
 library(RefManageR)
@@ -45,8 +46,11 @@ source(here("style/blake_cv_style.R"))
 
 ```{r}
 
-bib <- RefManageR::ReadBib(here("data/my_bibliography.bib"))
-bib <- cv_table(bib)
+collection <- jsonlite::read_json(here("data/collections"), simplifyVector = TRUE)
+
+zotero <- jsonlite::read_json(here("data/zotero"), simplifyVector = TRUE)
+
+bib <- cv_bibble(zotero, collection)
 
 ```
 

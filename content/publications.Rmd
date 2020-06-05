@@ -8,29 +8,31 @@
 ```{r}
 
 bib %>% 
-  filter(groups == "article") %>% 
+  filter(groups == "Article") %>% 
   mutate(ref = glue::glue(
     
-    "{author} ({date}). {title}. _{journaltitle}_ {volume} ({number}): {pages}. DOI: {doi} <br><br>"
+    "{author} ({year}). {title}. _{journal}_ {volume} ({number}): {pages}. DOI: {doi} <br><br>"
     
     )) %>% 
-  select(date, ref) %>% 
+  select(year, ref) %>% 
   cv_kable(bib = TRUE)
 
 ```
+
+<br><br><br>
 
 #### _Book reviews_
 
 ```{r}
 
 bib %>%
-  filter(groups == "review") %>%
+  filter(groups == "Review") %>%
   mutate(ref = glue::glue(
     
-    "{author} ({date}). {title}. _{journaltitle}_ {volume} ({number}): {pages}. DOI: {doi} <br><br>"
+    "{author} ({year}). {title}. _{journal}_ {volume} ({number}): {pages}. DOI: {doi} <br><br>"
     
     )) %>% 
-  select(date, ref) %>% 
+  select(year, ref) %>% 
   cv_kable(bib = TRUE)
 
 ```
@@ -42,13 +44,13 @@ bib %>%
 ```{r}
 
 bib %>% 
-  filter(groups == "report") %>% 
+  filter(groups == "Report") %>% 
   mutate(ref = glue::glue(
     
-    "{author} ({date}). {title}. {note}. <br><br>"
+    "{author} ({year}). {title}. Report submitted to the {institution}, {address}. <br><br>"
     
     )) %>% 
-  select(date, ref) %>% 
+  select(year, ref) %>% 
   cv_kable(bib = TRUE)
 
 ```
