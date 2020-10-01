@@ -63,10 +63,10 @@ cv_kable <- function(x, bib = FALSE){
   }
   
   kb <- kable(x,
-        format = "html", 
-        escape = FALSE, 
-        col.names = NULL, 
-        align = align) %>%
+              format = "html", 
+              escape = FALSE, 
+              col.names = NULL, 
+              align = align) %>%
     kable_styling(full_width = TRUE) %>% 
     column_spec(1, extra_css = col1_css) %>%
     column_spec(2, extra_css = col2_css)
