@@ -2,9 +2,9 @@
 title: "Kenneth Blake Vernon"
 output: 
   pagedown::html_paged:
-    self_contained: true
-    css: style/style.css
-    number_sections: false
+    self_contained: TRUE
+    css: style.css
+    number_sections: FALSE
 knit: pagedown::chrome_print
 params:
   appointments: TRUE
@@ -12,11 +12,13 @@ params:
   publications: TRUE
   funding: TRUE
   teaching: TRUE
+  students: FALSE
   presentations: TRUE 
   fieldwork: FALSE
   outreach: FALSE
   affiliations: TRUE
   committees: FALSE
+  development: FALSE
 ---
 
 ```{r setup, include = FALSE}
@@ -40,17 +42,17 @@ options(knitr.kable.NA = "")
 
 ```{r}
 
-source(here("style/blake_cv_style.R"))
+here("cv_tables.R") %>% source()
 
 ```
 
 ```{r}
 
-collection <- jsonlite::read_json(here("data/collections"), simplifyVector = TRUE)
+collection <- here("data", "_collections") %>% jsonlite::read_json(simplifyVector = TRUE)
 
-zotero <- jsonlite::read_json(here("data/zotero"), simplifyVector = TRUE)
+zotero <- here("data", "_zotero") %>% jsonlite::read_json(simplifyVector = TRUE)
 
-bib <- cv_bibble(zotero, collection)
+bib <- cv_get_bib(zotero, collection)
 
 ```
 
@@ -66,7 +68,8 @@ Salt Lake City, UT 84112
   <div id = "social">
 ```{r}
 
-read.csv(here("data/social.csv"), stringsAsFactors = FALSE) %>% 
+here("data", "social.csv") %>% 
+  read.csv() %>% 
   mutate(x = glue::glue("<a href={url}>{id}</a>"),
          y = glue::glue("<i class='{icon}-{organization}'></i><br>")) %>% 
   select(x, y) %>% 
@@ -94,6 +97,9 @@ read.csv(here("data/social.csv"), stringsAsFactors = FALSE) %>%
 ```{r, child = if(params$teaching) here("content/teaching.Rmd")}
 ```
 
+```{r, child = if(params$students) here("content/_students.Rmd")}
+```
+
 ```{r, child = if(params$presentations) here("content/presentations.Rmd")}
 ```
 
@@ -107,4 +113,7 @@ read.csv(here("data/social.csv"), stringsAsFactors = FALSE) %>%
 ```
 
 ```{r, child = if(params$committees) here("content/committees.Rmd")}
+```
+
+```{r, child = if(params$development) here("content/development.Rmd")}
 ```

@@ -5,10 +5,11 @@
 
 ```{r}
 
-read.csv(here("data/fieldwork.csv"), stringsAsFactors = FALSE) %>% 
+here("data", "fieldwork.csv") %>% 
+  read.csv() %>% 
   arrange(desc(date)) %>% 
   mutate(y = glue("{agency}: {project}, {county}, {state}, ({date}). {organization}, PI: {PI}. Weeks: {weeks}.<br><br>")) %>% 
   select(date, y) %>% 
-  cv_kable(bib = TRUE)
+  cv_bibble()
 
 ```

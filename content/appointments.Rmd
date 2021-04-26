@@ -5,7 +5,8 @@
 
 ```{r}
 
-read.csv(here("data/appointments.csv"), stringsAsFactors = FALSE) %>% 
+here("data", "appointments.csv") %>% 
+  read.csv() %>% 
   mutate(x = glue::glue("{title}, {organization}"), 
          y = case_when(is.na(end) ~ glue::glue("{start}-present"),
                        TRUE ~ glue::glue("{start}-{end}"))) %>% 

@@ -9,6 +9,6 @@ bib %>%
   filter(groups == "Presentation") %>% 
   mutate(ref = glue::glue("{author} ({year}). {title}. _{type} at the {shorttitle}, {address}_.<br><br>")) %>% 
   select(year, ref) %>% 
-  cv_kable(bib = TRUE)
+  cv_bibble()
   
 ```

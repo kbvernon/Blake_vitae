@@ -15,7 +15,7 @@ bib %>%
     
     )) %>% 
   select(year, ref) %>% 
-  cv_kable(bib = TRUE)
+  cv_bibble()
 
 ```
 
@@ -33,7 +33,7 @@ bib %>%
     
     )) %>% 
   select(year, ref) %>% 
-  cv_kable(bib = TRUE)
+  cv_bibble()
 
 ```
 
@@ -49,6 +49,6 @@ bib %>%
     
     )) %>% 
   select(year, ref) %>% 
-  cv_kable(bib = TRUE)
+  cv_bibble()
 
 ```

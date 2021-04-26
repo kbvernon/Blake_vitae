@@ -13,7 +13,8 @@ _University of Utah, Department of Anthropology_:
 
 ```{r, results = "asis"}
 
-read.csv(here::here("data/teaching.csv"), stringsAsFactors = FALSE) %>% 
-  glue::glue_data("* {x} <br>", x = unique(course))
+here("data", "teaching.csv") %>% 
+  read.csv() %>% 
+  glue::glue_data("* {x}  ", x = unique(course))
 
 ```

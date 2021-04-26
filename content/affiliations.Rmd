@@ -5,7 +5,8 @@
 
 ```{r}
 
-read.csv(here("data/affiliations.csv"), stringsAsFactors = FALSE) %>% 
+here("data", "affiliations.csv") %>% 
+  read.csv() %>% 
   mutate(x = glue::glue("<a href='{url}'>{organization}</a>"), 
          y = glue::glue("{start}-{end}")) %>% 
   select(x, y) %>% 
