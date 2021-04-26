@@ -17,6 +17,7 @@ body {
     font-size: 12px;
     color: #333;
     background-color: #fff;
+    line-height: 1.5;
 }
 
 :root{
@@ -104,9 +105,9 @@ h2 {
 
 /* style hyperlinks */
 a {
-  color: #054361;
+  color: #0F2E3D;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 

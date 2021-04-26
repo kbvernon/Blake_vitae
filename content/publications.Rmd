@@ -9,6 +9,7 @@
 
 bib %>% 
   filter(groups == "Article") %>% 
+  slice(1:2) %>% 
   mutate(ref = glue::glue(
     
     "{author} ({year}). {title}. _{journal}_ {volume} ({number}): {pages}. DOI: {doi} <br><br>"
@@ -20,6 +21,21 @@ bib %>%
 ```
 
 <br><br><br>
+
+```{r}
+
+bib %>% 
+  filter(groups == "Article") %>% 
+  slice(3:n()) %>% 
+  mutate(ref = glue::glue(
+    
+    "{author} ({year}). {title}. _{journal}_ {volume} ({number}): {pages}. DOI: {doi} <br><br>"
+    
+    )) %>% 
+  select(year, ref) %>% 
+  cv_bibble()
+
+```
 
 #### _Book reviews_
 
