@@ -48,9 +48,9 @@ here("cv_tables.R") %>% source()
 
 ```{r}
 
-collection <- here("data", "_collections") %>% jsonlite::read_json(simplifyVector = TRUE)
+collection <- here("data", "collections") %>% jsonlite::read_json(simplifyVector = TRUE)
 
-zotero <- here("data", "_zotero") %>% jsonlite::read_json(simplifyVector = TRUE)
+zotero <- here("data", "zotero") %>% jsonlite::read_json(simplifyVector = TRUE)
 
 bib <- cv_get_bib(zotero, collection)
 
