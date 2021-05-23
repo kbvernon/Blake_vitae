@@ -29,7 +29,8 @@ cv_get_bib <- function(zotero, collection){
                                              replacement = ", "),
            title = stringr::str_remove_all(title, pattern = "[{}]"),
            shorttitle = stringr::str_remove_all(shorttitle, pattern = "[{}]")) %>% 
-    mutate(title = if_else(is.na(url), 
+    mutate(author = stringr::str_remove_all(author, pattern = "[{}]"),
+           title = if_else(is.na(url), 
                            title,
                            paste0("<a href='", url, "' target = '_blank'>", title, "</a>"))) %>% 
     arrange(desc(year))
