@@ -7,9 +7,9 @@
   --secondary-color: #ffffff;
   --accent-color: #741D07;
   --page-width: 8.5in;
-  --pagedjs-margin-top: 0.85in;
+  --pagedjs-margin-top: 0.8in;
   --pagedjs-margin-right: 0.8in;
-  --pagedjs-margin-bottom: 0.85in;
+  --pagedjs-margin-bottom: 0.8in;
   --pagedjs-margin-left: 0.8in;
   --root-font-size: 11pt;
   --viewer-pages-spacing: 12px;
@@ -97,7 +97,7 @@ h2:after {
 }
 
 h2 + p {
-  orphans: 5;
+  orphans: 4;
 }
 
 #publications h4 {
@@ -138,7 +138,11 @@ h2 + p {
 
 #teaching {
   text-align: justify; 
-  text-justify: inter-word;
+  text-align-last: left;
+}
+
+#teaching ul {
+  margin-block-start: 0.4em;
 }
 
 .cv-chunk {
@@ -195,7 +199,7 @@ This makes it easier to handle page breaks and CSS styling.
   margin-bottom: 0.75rem;
 }
 
-
+/* hide all dates in block year except the first one */
 .block-year .block-row:not(:first-child) .date p {
   display: none;
 }

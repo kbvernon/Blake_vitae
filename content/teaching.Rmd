@@ -1,7 +1,7 @@
 ## `r fa("chalkboard-teacher")` Teaching {#teaching}
 
 ::: {.cv-chunk}
-__Teaching interests__. Behavioral Ecology, Human Ecology, Human Prehistory, Hunter-Gatherers, Conservation \& Sustainability, Ethnoarchaeology, GIS/Spatial Analysis, Quantitative Data Analysis, Archaeological Method \& Theory, North American Prehistory
+__Teaching interests__. Behavioral Ecology, Human Ecology, Human Prehistory, Hunter-Gatherers, Conservation \& Sustainability, Ethnoarchaeology, GIS/Spatial Analysis, Quantitative Data Analysis, Archaeological Method \& Theory, North American Prehistory  
 :::
 
 ```{r}
