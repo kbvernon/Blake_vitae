@@ -2,7 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-data/
-blake_vitae.html
-/zmisc/
+zmisc/
 credentials.RData
