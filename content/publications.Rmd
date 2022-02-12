@@ -1,37 +1,18 @@
-
-<br>
-
-## Publications 
+## `r fa("book")` Publications
 
 #### _Peer-reviewed journal articles_
 
 ```{r}
 
 bib %>% 
-  filter(groups == "Article") %>% 
-  slice(1:2) %>% 
-  mutate(ref = glue::glue(
-    
-    "{author} ({year}). {title}. _{journal}_ {volume} ({number}): {pages}. DOI: {doi} <br><br>"
-    
+  filter(groups == "Article") %>%
+  mutate(
+    item = glue::glue(
+      
+      "{author} ({year}). {title}. _{journal}_ {volume} ({number}): {pages}. DOI: {doi}"
+      
     )) %>% 
-  select(year, ref) %>% 
-  cv_bibble()
-
-```
-
-```{r}
-
-bib %>% 
-  filter(groups == "Article") %>% 
-  slice(3:n()) %>% 
-  mutate(ref = glue::glue(
-    
-    "{author} ({year}). {title}. _{journal}_ {volume} ({number}): {pages}. DOI: {doi} <br><br>"
-    
-    )) %>% 
-  select(year, ref) %>% 
-  cv_bibble()
+  make_block()
 
 ```
 
@@ -41,13 +22,13 @@ bib %>%
 
 bib %>%
   filter(groups == "Review") %>%
-  mutate(ref = glue::glue(
-    
-    "{author} ({year}). {title}. _{journal}_ {volume} ({number}): {pages}. DOI: {doi} <br><br>"
-    
+  mutate(
+    item = glue::glue(
+      
+      "{author} ({year}). {title}. _{journal}_ {volume} ({number}): {pages}. DOI: {doi}"
+      
     )) %>% 
-  select(year, ref) %>% 
-  cv_bibble()
+  make_block()
 
 ```
 
@@ -57,12 +38,12 @@ bib %>%
 
 bib %>% 
   filter(groups == "Report") %>% 
-  mutate(ref = glue::glue(
-    
-    "{author} ({year}). {title}. Report submitted to the {institution}, {address}. <br><br>"
-    
+  mutate(
+    item = glue::glue(
+      
+      "{author} ({year}). <b>{title}</b>. Report submitted to the {institution}, {address}."
+      
     )) %>% 
-  select(year, ref) %>% 
-  cv_bibble()
+  make_block()
 
 ```

@@ -2,33 +2,30 @@
 /* import font type */
 @import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
 
-/* import icons */
-@import url("https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css");
-
-@import url("https://use.fontawesome.com/releases/v5.7.2/css/all.css");
-
+:root{
+  --main-color: #333333;
+  --secondary-color: #ffffff;
+  --accent-color: #741D07;
+  --page-width: 8.5in;
+  --pagedjs-margin-top: 0.85in;
+  --pagedjs-margin-right: 0.8in;
+  --pagedjs-margin-bottom: 0.85in;
+  --pagedjs-margin-left: 0.8in;
+  --root-font-size: 11pt;
+  --viewer-pages-spacing: 12px;
+  --viewer-shadow-color: #313131;
+  --decorator-horizontal-margin: 0;
+  --row-blocks-padding-top: 0;
+  --date-block-width: 0.6in;
+  --main-blocks-title-icon-offset-left: calc(-17pt - 0.25 * var(--root-font-size));
+}
 
 @page{
-  size: A4 portrait;
-}
-
-body {
-    font-family: sans-serif;
-    font-size: 12px;
-    color: #333;
-    background-color: #fff;
-    line-height: 1.5;
-}
-
-:root{
-  --page-width: 8.5in;
-  --pagedjs-margin-right:  1.25in;
-  --pagedjs-margin-left:   1.25in;
-  --pagedjs-margin-top:    0.75in;
-  --pagedjs-margin-bottom: 1.00in;
-  --root-font-size: 10pt;
-  --viewer-pages-spacing: 12px;
-  --viewer-shadow-color: #313131; /* this marks the pages */
+  size: letter portrait;
+  margin-top: var(--pagedjs-margin-top);
+  margin-right: var(--pagedjs-margin-right);
+  margin-bottom: var(--pagedjs-margin-bottom);
+  margin-left: var(--pagedjs-margin-left);
 }
 
 /* Paged.js viewer */
@@ -58,33 +55,59 @@ body {
   }
 }
 
-
-table {
-  width: 100%;
+body {
+    font-family: sans-serif;
+    font-size: var(--root-font-size);
+    color: var(--main-color);
+    background-color: var(--secondary-color);
+    line-height: 1.4;
 }
 
-
-
-tr {
-  break-inside: avoid;
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
 }
 
-
-/* create ability to insert pagebreaks with br.pagebreak */
-br.pageBreak {
-    page-break-after: always;
+b {
+  color: var(--accent-color);
 }
 
-/* add hline to section header */
+h1.title {
+  font-family: sans-serif;
+  font-weight: 300;
+  font-size: calc(3 * var(--root-font-size));
+  margin-top: 0px;
+  margin-bottom: 0px; 
+  padding-bottom: 0px;
+}
+
 h2 {
-  border-bottom: 1px solid #858585;
-  padding-bottom: 0.5px;
+  display: flex;
+  flex-direction: row;
+  margin-block-end: 0.3em;
+  break-after: avoid;
 }
 
+h2:after {
+  content: "";
+  flex: 1 1;
+  border-bottom: 1px solid 	#8d9094;
+  margin: auto auto 0.6rem 0.2rem;
+}
+
+h2 + p {
+  orphans: 5;
+}
+
+#publications h4 {
+  margin-block-start: 0.3em;
+  margin-block-end: 0.65em;
+}
 
 #profile {
-  width: 100%;
   display: flex;
+  width: 100%;
   justify-content: space-between;
 }
 
@@ -102,43 +125,111 @@ h2 {
   text-align: right;
 }
 
-
-/* style hyperlinks */
-a {
-  color: #0F2E3D;
-  text-decoration: none;
-  font-weight: 600;
+#disclaimer {
+  position: absolute;
+  bottom: -30px;
+  right: 0;
+  font-size: 0.75rem;
+  font-style: italic;
+  line-height: 1.1;
+  text-align: right;
+  color: #777;
 }
 
-
-/* r markdown title */
-h1.title {
-  font-family: sans-serif;
-  font-weight: 300;
-  font-size: 38px;
-  margin-bottom: 2px;
-  padding-bottom: 2px;
+#teaching {
+  text-align: justify; 
+  text-justify: inter-word;
 }
 
-
-/* don't make page breaks inside an entry */
-tr {
+.cv-chunk {
   break-inside: avoid;
+  break-after: auto;
+}
+
+.break-after-me {
+  break-after: page;
+}
+
+table {
+  width: 100%;
+}
+
+tr {
+  border: 0;
+  /* don't make page breaks inside a table row */
+  break-inside: avoid;
+  break-after: auto;
+}
+
+td {
+  padding-bottom: 0.75rem;
+}
+
+#social svg {
+  width: 1.1em;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.1em;
+}
+
+#main svg {
+  padding-right: 0.3em;
+}
+
+/*
+Hierarchy: 
+
+blocks 
+  |--> block-year
+          |--> block-row = {date + details}
+          |--> block-row
+  |--> block-year
+          |--> block-row
+          |--> block-row
+          
+This makes it easier to handle page breaks and CSS styling.
+*/
+
+.blocks {
+  margin-top: 1em;
+  margin-bottom: 0.75rem;
 }
 
 
-/****** Page numbers ******/
-@page {
-  @top-left {
-    content: none;
-  }
-  @top-right {
-    content: none;
-  }
-  @bottom-center {
-    content: counter(page);
-  }
+.block-year .block-row:not(:first-child) .date p {
+  display: none;
 }
-.pagedjs_margin.pagedjs_margin-bottom-right.hasContent {
-  align-items: baseline;
+
+.block-row {
+  display: flex;
+  flex-flow: row nowrap;
+  break-inside: avoid;
+  padding-bottom: 0.75rem;
+  vertical-align: top;
+  align-items: start;
+}
+
+.blocks p {
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  line-height: 1.4;
+}
+
+.date{
+  flex: 0 0 var(--date-block-width);
+  padding-top: var(--row-blocks-padding-top) !important;
+  padding-right: var(--decorator-horizontal-margin);
+  text-align: left;
+  line-height: 1;
+  max-width: var(--date-block-width);
+  vertical-align: top;
+  top: 0;
+}
+
+.details{
+  text-align: justify;
+  text-justify: inter-word;
+  vertical-align: top;
+  top: 0;
 }

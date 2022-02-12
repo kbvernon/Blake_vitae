@@ -1,16 +1,23 @@
-
-<br> 
-
-## Appointments
+## `r fa("briefcase")` Appointments
 
 ```{r}
 
-here("data", "appointments.csv") %>% 
-  read.csv() %>% 
-  mutate(x = glue::glue("{title}, {organization}"), 
-         y = case_when(is.na(end) ~ glue::glue("{start}-present"),
-                       TRUE ~ glue::glue("{start}-{end}"))) %>% 
+read_sheet(google_page_id, sheet = "appointments")  %>%
+  mutate(
+    x = glue::glue("{title}, {organization}"),
+    y = ifelse(
+      is.na(end), 
+      glue::glue("{start}-present"),
+      glue::glue("{start}-{end}")
+    )
+  ) %>% 
   select(x, y) %>% 
-  cv_kable()
+  kbl(
+    escape = FALSE,
+    col.names = NULL,
+    align = c('l', 'r')
+  ) %>%
+  kable_styling(full_width = TRUE) %>%
+  collapse_rows(columns = 1, valign = "top")
 
 ```

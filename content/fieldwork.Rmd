@@ -1,15 +1,18 @@
+## `r fa("hiking")` Fieldwork
 
-<br>
-
-## Fieldwork
+_Multi-year projects are repeated with the number of weeks worked each year._
 
 ```{r}
 
-here("data", "fieldwork.csv") %>% 
-  read.csv() %>% 
-  arrange(desc(date)) %>% 
-  mutate(y = glue("{agency}: {project}, {county}, {state}, ({date}). {organization}, PI: {PI}. Weeks: {weeks}.<br><br>")) %>% 
-  select(date, y) %>% 
-  cv_bibble()
+read_sheet(google_page_id, sheet = "fieldwork") %>% 
+  arrange(desc(year)) %>% 
+  mutate(
+    item = glue::glue(
+    "{project}, {county} Co., {state}, ({year}). ",
+    "With {agency} as sponsoring agency for {organization}. ", 
+    "PI(s): {pi}. Worked as {position} for {weeks} week(s).",
+    "<br><br>"
+  )) %>% 
+  make_block()
 
 ```

@@ -1,16 +1,15 @@
-
-<br>
-
-## Grants, Fellowships, and Awards
+## `r fa("hand-holding-usd")` Grants, Fellowships, and Awards {#funding}
 
 ```{r}
 
-here("data", "funding.csv") %>% 
-  read.csv() %>% 
+read_sheet(google_page_id, sheet = "funding") %>% 
   filter(result == "Awarded") %>% 
-  arrange(desc(year)) %>% 
-  mutate(y = glue::glue("{FOT}, {organization}. \"{title}\". PI: {PI}.<br><br>")) %>% 
-  select(year, y) %>% 
-  cv_bibble()
+  mutate(
+    item = glue::glue(
+      
+      "{FOT}, {organization}. <b>{title}</b>. PI: {PI}."
+  
+    )) %>% 
+  make_block()
 
 ```

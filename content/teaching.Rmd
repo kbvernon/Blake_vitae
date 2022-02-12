@@ -1,20 +1,26 @@
+## `r fa("chalkboard-teacher")` Teaching {#teaching}
 
-<br>
+::: {.cv-chunk}
+__Teaching interests__. Behavioral Ecology, Human Ecology, Human Prehistory, Hunter-Gatherers, Conservation \& Sustainability, Ethnoarchaeology, GIS/Spatial Analysis, Quantitative Data Analysis, Archaeological Method \& Theory, North American Prehistory
+:::
 
-## Teaching
+```{r}
 
-_Teaching interests_:  
-
-<div style = "text-align: justify; text-justify: inter-word;">
-Behavioral Ecology, Human Ecology, Human Prehistory, Hunter-Gatherers, Conservation \& Sustainability, Ethnoarchaeology, GIS/Spatial Analysis, Quantitative Data Analysis, Archaeological Method \& Theory, North American Prehistory  
-</div>
-
-_University of Utah, Department of Anthropology_:  
-
-```{r, results = "asis"}
-
-here("data", "teaching.csv") %>% 
-  read.csv() %>% 
-  glue::glue_data("* {x}  ", x = unique(course))
+read_sheet(google_page_id, sheet = "teaching") %>% 
+  group_by(university, department) %>% 
+  summarize(
+    courses = paste0("<li>", unique(course), "</li>", collapse = "\n")
+  ) %>% 
+  rowwise() %>% 
+  mutate(
+    teaching = glue::glue(
+      
+      "{university}, Department of {department}\n<ul>{courses}</ul>"
+      
+    ),
+  ) %>% 
+  pull(teaching) %>% 
+  div(class = "cv-chunk") %>% 
+  cat()
 
 ```

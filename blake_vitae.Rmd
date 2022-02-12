@@ -1,11 +1,5 @@
 ---
 title: "Kenneth Blake Vernon"
-output: 
-  pagedown::html_paged:
-    self_contained: TRUE
-    css: style.css
-    number_sections: FALSE
-knit: pagedown::chrome_print
 params:
   appointments: TRUE
   education: TRUE
@@ -14,73 +8,82 @@ params:
   teaching: TRUE
   students: FALSE
   presentations: TRUE 
-  fieldwork: FALSE
   outreach: FALSE
   affiliations: TRUE
   committees: FALSE
   development: FALSE
+  fieldwork: FALSE
+output: 
+  pagedown::html_paged:
+    self_contained: TRUE
+    css: style.css
+    number_sections: FALSE
+knit: 
+  pagedown::chrome_print:
+    async: TRUE
 ---
 
 ```{r setup, include = FALSE}
 
-knitr::opts_chunk$set(echo = FALSE, 
-                      warning = FALSE, 
-                      message = FALSE)
-
+### LIBRARIES ###
+library(dplyr)
 library(glue)
+library(googlesheets4)
 library(here)
-library(icon) # github only (ropenscilabs)
-library(jsonlite)
+library(icons)
 library(kableExtra)
 library(knitr)
 library(RefManageR)
-library(tidyverse)
+library(tidyr)
+
+### SETTINGS ###
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  warning = FALSE, 
+  message = FALSE,
+  results = "asis"
+)
 
 options(knitr.kable.NA = "")
 
-```
+### HELPER FUNCTIONS ###
+fa <- icons::fontawesome # version 5
+ai <- icons::academicons
 
-```{r}
+source(here("cv_blocks.R"))
 
-here("cv_tables.R") %>% source()
+### CREDENTIALS ###
+load(here("credentials.RData"))
 
-```
-
-```{r}
-
-collection <- here("data", "collections") %>% jsonlite::read_json(simplifyVector = TRUE)
-
-zotero <- here("data", "zotero") %>% jsonlite::read_json(simplifyVector = TRUE)
-
-bib <- cv_get_bib(zotero, collection)
+### BIBLIOGRAPHY ###
+bib <- cv_get_bibliography(zotero, collection)
 
 ```
 
-<div id = "profile">
-  <div id = "address">
+::: {#disclaimer} 
+CV last updated on `r Sys.Date()` 
+:::
+
+:::::: {#profile}
+
+::: {#address}
 Department of Anthropology  
 University of Utah  
 260 Central Campus Drive  
 Salt Lake City, UT 84112  
 (801) 581-6252  
-<a href="https://faculty.utah.edu/~kbvernon">faculty.utah.edu/~kbvernon</a>
-  </div>
-  <div id = "social">
-```{r}
+[faculty.utah.edu/~kbvernon](https://faculty.utah.edu/~kbvernon)
+:::
 
-here("data", "social.csv") %>% 
-  read.csv() %>% 
-  mutate(x = glue::glue("<a href={url}>{id}</a>"),
-         y = glue::glue("<i class='{icon}-{organization}'></i><br>")) %>% 
-  select(x, y) %>% 
-  kable(format = "html", 
-        escape = FALSE, 
-        col.names = NULL, 
-        align = c("r", "r"))
+::: {#social}
+[kbvernon](https://github.com/kbvernon)  `r fa("github")`  
+[0000-0003-0098-5092](https://orcid.org/0000-0003-0098-5092) `r ai("orcid")`  
+[2PE4za4AAAAJ](https://scholar.google.com/citations?user=2PE4za4AAAAJ&hl=en) `r ai("google-scholar")`  
+:::
 
-```
-  </div>
-</div>
+::::::
+
+:::::: {#main}
 
 ```{r, child = if(params$appointments) here("content/appointments.Rmd")}
 ```
@@ -91,12 +94,8 @@ here("data", "social.csv") %>%
 ```{r, child = if(params$publications) here("content/publications.Rmd")}
 ```
 
-<br><br><br><br>
-
 ```{r, child = if(params$funding) here("content/funding.Rmd")}
 ```
-
-<br><br><br><br><br><br><br><br><br><br><br><br>
 
 ```{r, child = if(params$teaching) here("content/teaching.Rmd")}
 ```
@@ -105,9 +104,6 @@ here("data", "social.csv") %>%
 ```
 
 ```{r, child = if(params$presentations) here("content/presentations.Rmd")}
-```
-
-```{r, child = if(params$fieldwork) here("content/fieldwork.Rmd")}
 ```
 
 ```{r, child = if(params$outreach) here("content/outreach.Rmd")}
@@ -121,3 +117,8 @@ here("data", "social.csv") %>%
 
 ```{r, child = if(params$development) here("content/development.Rmd")}
 ```
+
+```{r, child = if(params$fieldwork) here("content/fieldwork.Rmd")}
+```
+
+::::::
