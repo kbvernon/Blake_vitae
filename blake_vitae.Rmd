@@ -8,8 +8,8 @@ params:
   teaching: TRUE
   students: FALSE
   presentations: TRUE 
-  outreach: FALSE
   affiliations: TRUE
+  synergy: TRUE
   committees: FALSE
   development: FALSE
   fieldwork: FALSE
@@ -34,6 +34,7 @@ library(icons)
 library(kableExtra)
 library(knitr)
 library(RefManageR)
+library(stringr)
 library(tidyr)
 
 ### SETTINGS ###
@@ -106,10 +107,10 @@ Salt Lake City, UT 84112
 ```{r, child = if(params$presentations) here("content/presentations.Rmd")}
 ```
 
-```{r, child = if(params$outreach) here("content/outreach.Rmd")}
+```{r, child = if(params$affiliations) here("content/affiliations.Rmd")}
 ```
 
-```{r, child = if(params$affiliations) here("content/affiliations.Rmd")}
+```{r, child = if(params$synergy) here("content/synergy.Rmd")}
 ```
 
 ```{r, child = if(params$committees) here("content/committees.Rmd")}
@@ -120,5 +121,9 @@ Salt Lake City, UT 84112
 
 ```{r, child = if(params$fieldwork) here("content/fieldwork.Rmd")}
 ```
+
+## `r fa("envelope")` References
+
+_Available upon request._
 
 ::::::

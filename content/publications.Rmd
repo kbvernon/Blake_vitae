@@ -12,6 +12,7 @@ bib %>%
       "{author} ({year}). {title}. _{journal}_ {volume} ({number}): {pages}. DOI: {doi}"
       
     )) %>% 
+  arrange(desc(author)) %>% # push my first author pub to the top
   make_block()
 
 ```

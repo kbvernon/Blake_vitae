@@ -96,8 +96,12 @@ h2:after {
   margin: auto auto 0.6rem 0.2rem;
 }
 
-h2 + p {
+h2, h3, h4 + p {
   orphans: 4;
+}
+
+h3, h4 {
+  break-after: avoid;
 }
 
 #publications h4 {

@@ -1,21 +1,30 @@
-## `r fa("chalkboard-teacher")` Teaching {#teaching}
+## `r fa("chalkboard-user")` Teaching {#teaching}
+
+:::::: {.blocks}
 
 ::: {.cv-chunk}
 __Teaching interests__. Behavioral Ecology, Human Ecology, Human Prehistory, Hunter-Gatherers, Conservation \& Sustainability, Ethnoarchaeology, GIS/Spatial Analysis, Quantitative Data Analysis, Archaeological Method \& Theory, North American Prehistory  
 :::
 
+<br>
+
 ```{r}
 
 read_sheet(google_page_id, sheet = "teaching") %>% 
   group_by(university, department) %>% 
+  arrange(year, .by_group = TRUE) %>% 
   summarize(
-    courses = paste0("<li>", unique(course), "</li>", collapse = "\n")
+    courses = paste0(glue::glue(
+      
+      "<li>{year} {semester} __{position}__. {course} </li>"
+      
+    ), collapse = "\n")
   ) %>% 
   rowwise() %>% 
   mutate(
     teaching = glue::glue(
       
-      "{university}, Department of {department}\n<ul>{courses}</ul>"
+      "{university}, Department of {department}\n<ul>\n{courses}\n</ul>"
       
     ),
   ) %>% 
@@ -24,3 +33,5 @@ read_sheet(google_page_id, sheet = "teaching") %>%
   cat()
 
 ```
+
+::::::

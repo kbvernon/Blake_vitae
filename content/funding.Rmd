@@ -1,4 +1,4 @@
-## `r fa("hand-holding-usd")` Grants, Fellowships, and Awards {#funding}
+## `r fa("hand-holding-dollar")` Grants, Fellowships, and Awards {#funding}
 
 ```{r}
 

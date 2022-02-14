@@ -51,8 +51,24 @@ cv_get_bibliography <- function(zotero, collection){
   
 }
 
+#' Wrapper to make div elements
+#' 
+#' a very, very crude version of htmltools::div()
+#'
+div <- function(..., class = NULL, sep = NULL) {
+  
+  open_fence <- paste0("<div class='", class, "'>\n")
+  
+  content <- if (!is.null(sep)) paste(..., sep = sep) else paste(...)
+  
+  close_fence <- "\n</div>"
+  
+  paste0(open_fence, content, close_fence)
+  
+} 
 
-#' Standard formatting for cv blocks (date -- details)
+
+#' Standard formatting for generic cv blocks (date -- details)
 #' 
 #' Blocks are html divs wrapped around chunk content 
 #' to make styling with css easier.
@@ -81,15 +97,3 @@ make_block <- function(x){
     cat()
   
 }
-
-div <- function(..., class = NULL, sep = NULL) {
-  
-  open_fence <- paste0("<div class='", class, "'>\n")
-  
-  content <- if (!is.null(sep)) paste(..., sep = sep) else paste(...)
-  
-  close_fence <- "\n</div>"
-  
-  paste0(open_fence, content, close_fence)
-  
-} 

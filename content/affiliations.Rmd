@@ -1,9 +1,11 @@
-## `r fa("people-arrows")` Professional Affiliations {#affiliations}
+## `r fa("people-arrows-left-right")` Professional Affiliations {#affiliations}
 
+::: {.cv-chunk}
 ```{r}
 
 read_sheet(google_page_id, sheet = "affiliations") %>% 
   mutate(
+    end = ifelse(is.na(end), "present", end),
     x = glue::glue("<a href='{url}'>{organization}</a>"), 
     y = glue::glue("{start}-{end}")
   ) %>% 
@@ -17,3 +19,4 @@ read_sheet(google_page_id, sheet = "affiliations") %>%
   collapse_rows(columns = 1, valign = "top")
 
 ```
+:::
