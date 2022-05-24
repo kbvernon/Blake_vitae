@@ -1,4 +1,4 @@
-## `r fa("chalkboard-user")` Teaching {#teaching}
+## `r fa("chalkboard-teacher")` Teaching {#teaching}
 
 :::::: {.blocks}
 

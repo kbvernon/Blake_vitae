@@ -1,4 +1,4 @@
-## `r fa("handshake-angle")` Service, Outreach, and Other Activities
+## `r fa("hands-helping")` Service, Outreach, and Other Activities
 
 #### _University of Utah_
 
