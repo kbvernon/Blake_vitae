@@ -48,7 +48,7 @@ knitr::opts_chunk$set(
 options(knitr.kable.NA = "")
 
 ### HELPER FUNCTIONS ###
-fa <- icons::fontawesome # version 5
+fa <- icons::fontawesome 
 ai <- icons::academicons
 
 source(here("cv_blocks.R"))
