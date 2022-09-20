@@ -68,15 +68,16 @@ CV last updated on `r Sys.Date()`
 :::::: {#profile}
 
 ::: {#address}
-Department of Anthropology  
-University of Utah  
-260 Central Campus Drive  
-Salt Lake City, UT 84112  
-(801) 581-6252  
-[faculty.utah.edu/~kbvernon](https://faculty.utah.edu/~kbvernon)
+Center for Collaborative Synthesis in Archaeology  
+Institute of Behavioral Science  
+University of Colorado, Boulder  
+1440 15th Street  
+Boulder, CO 80302  
+(303) 492-8147  
 :::
 
 ::: {#social}
+[kbvernon.io](https://www.kbvernon.io/) `r fa("portrait")`  
 [kbvernon](https://github.com/kbvernon)  `r fa("github")`  
 [0000-0003-0098-5092](https://orcid.org/0000-0003-0098-5092) `r ai("orcid")`  
 [2PE4za4AAAAJ](https://scholar.google.com/citations?user=2PE4za4AAAAJ&hl=en) `r ai("google-scholar")`  
