@@ -5,9 +5,10 @@
 read_sheet(google_page_id, sheet = "appointments")  %>%
   mutate(
     end = ifelse(is.na(end), "present", end),
-    x = glue::glue("{title}, {organization}"),
+    x = glue::glue("__{title}__<br>{organization}"),
     y = glue::glue("{start}-{end}")
   ) %>% 
+  arrange(desc(start)) |> 
   select(x, y) %>% 
   kbl(
     escape = FALSE,
