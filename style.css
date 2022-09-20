@@ -3,9 +3,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
 
 :root{
-  --main-color: #333333;
+  --main-color: #26282B;
   --secondary-color: #ffffff;
-  --accent-color: #741D07;
+  --accent-color: #769D84;
   --page-width: 8.5in;
   --pagedjs-margin-top: 0.8in;
   --pagedjs-margin-right: 0.8in;
@@ -116,14 +116,14 @@ h3, h4 {
 }
 
 #address {
-  width: 50%;
+  width: 65%;
   margin-right: auto;
   vertical-align: top;
   text-align: left;
 }
 
 #social {
-  width: 50%;
+  width: 34%;
   margin-left: auto;
   vertical-align: top;
   text-align: right;
@@ -212,7 +212,7 @@ This makes it easier to handle page breaks and CSS styling.
   display: flex;
   flex-flow: row nowrap;
   break-inside: avoid;
-  padding-bottom: 0.75rem;
+  padding-bottom: 1rem;
   vertical-align: top;
   align-items: start;
 }
