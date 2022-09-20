@@ -12,8 +12,7 @@ cv_get_bibliography <- function(zotero, collection){
     
     bib_col <- RefManageR::ReadZotero(
       user = zotero$id,
-      .params = list(key = zotero$key,
-                     collection = collection[i, "id"])
+      .params = list(key = zotero$key, collection = collection[i, "id"])
     )
     
     bib_col <- as_tibble(bib_col)
@@ -24,8 +23,8 @@ cv_get_bibliography <- function(zotero, collection){
     
   }
   
-  bib_collections %>%
-    bind_rows() %>%
+  bib_collections |>
+    bind_rows() |>
     mutate(
       author = stringr::str_replace_all(
         author,
@@ -46,7 +45,7 @@ cv_get_bibliography <- function(zotero, collection){
       shorttitle = stringr::str_remove_all(
         shorttitle, pattern = "[{}]"
       )
-    ) %>%
+    ) |>
     arrange(desc(year))
   
 }
@@ -77,23 +76,23 @@ div <- function(..., class = NULL, sep = NULL) {
 #'
 make_block <- function(x){
   
-  x %>% 
+  x |> 
     mutate(
       details = div(item, class = "details"),
       date = div(year, class = "date")
-    ) %>% 
-    rowwise() %>% 
+    ) |> 
+    rowwise() |> 
     mutate(
       block_rows = div(date, details, class = "block-row", sep = "\n")
-    ) %>%
-    group_by(year) %>% 
+    ) |>
+    group_by(year) |> 
     summarize(
       blocks = div(paste0(block_rows, collapse = "\n"), class = "block-year")
-    ) %>% 
-    arrange(desc(year)) %>% 
-    pull(blocks) %>% 
-    paste0(collapse = "\n") %>% 
-    div(class = "blocks") %>% 
+    ) |> 
+    arrange(desc(year)) |> 
+    pull(blocks) |> 
+    paste0(collapse = "\n") |> 
+    div(class = "blocks") |> 
     cat()
   
 }
