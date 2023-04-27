@@ -1,5 +1,29 @@
 ## `r fa("hands-helping")` Service, Outreach, and Other Activities
 
+#### _University of Colorado, Boulder_
+
+```{r}
+
+read_sheet(google_page_id, sheet = "synergy") %>% 
+  filter(
+    type == "university service", 
+    organization == "University of Colorado"
+  ) %>% 
+  mutate(
+    status = ifelse(
+      status == "active",
+      paste0("<span style='color: #2B8A12; font-weight: bold;'>", status, "</span>"),
+      paste0("__", status, "__")
+    ),
+    item = glue::glue(
+      
+      "__{position}__. {description}. Status: {status}."
+      
+    )) %>% 
+  make_block()
+  
+```
+
 #### _University of Utah_
 
 ```{r}
