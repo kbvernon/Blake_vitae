@@ -1,0 +1,385 @@
+---
+title: "Kenneth Blake Vernon"
+format:
+  html:
+    mainfont: sans-serif
+    fontcolor: "#151314"
+    linkcolor: "#BF211E"
+    smooth-scroll: true
+    page-layout: full
+    css: style.css
+    embed-resources: true
+execute: 
+  echo: false
+  error: false
+  warning: false
+  output: asis
+editor: source
+params:
+  appointments: true
+  education: true
+  publications: true
+  presentations: true 
+  funding: true
+  teaching: true
+  affiliations: true
+  synergy: true
+  committees: false
+  students: false
+  development: false
+  fieldwork: false
+---
+
+```{r}
+
+box::use(
+  dplyr[...],
+  googlesheets4[read_sheet],
+  here[here],
+  htmltools[div, HTML],
+  icons[...],
+  kableExtra[kbl, kable_styling],
+  knitr[...],
+  purrr[map],
+  RefManageR[...],
+  stringr[str_glue],
+  tidyr[...],
+  ./helpers[bibliography, format_entries, make_blocks]
+)
+
+options(knitr.kable.NA = "")
+
+here("_credentials.RData") |> load()
+
+bib <- bibliography(
+  collection, 
+  zotero, 
+  selection = c("Article", "Review", "Report", "Manuscript", "Presentation")
+)
+
+```
+
+::::::::: {#profile}
+::: {#address}
+Center for Collaborative Synthesis in Archaeology  
+Institute of Behavioral Science  
+University of Colorado, Boulder  
+1440 15th Street  
+Boulder, CO 80302  
+(303) 492-8147  
+:::
+
+::: {#social}
+[kbvernon.io](https://www.kbvernon.io/) {{< fa portrait >}}  
+[kbvernon](https://github.com/kbvernon) {{< fa brands github >}}  
+[0000-0003-0098-5092](https://orcid.org/0000-0003-0098-5092) {{< ai orcid >}}  
+[2PE4za4AAAAJ](https://scholar.google.com/citations?user=2PE4za4AAAAJ&hl=en) {{< ai google-scholar >}}  
+:::
+:::::::::
+
+::: {#disclaimer}
+CV last updated on `r Sys.Date()`
+:::
+
+::::::::: {#main}
+:::::: {.content-visible when-meta="params.appointments"}
+
+## {{< fa briefcase >}} Appointments
+
+```{r}
+
+read_sheet(google_page_id, sheet = "appointments")  |>
+  mutate(
+    end = ifelse(is.na(end), "present", end),
+    x = str_glue("<strong>{title}</strong><br>{organization}"),
+    y = str_glue("{start}-{end}")
+  ) |> 
+  arrange(desc(start)) |> 
+  select(x, y) |> 
+  kbl(
+    escape = FALSE,
+    col.names = NULL,
+    align = c('l', 'r')
+  ) |>
+  kable_styling(full_width = TRUE)
+
+```
+
+::::::
+
+:::::: {.content-visible when-meta="params.education"}
+
+## {{< fa graduation-cap >}} Education
+
+```{r}
+
+read_sheet(google_page_id, sheet = "education") |> 
+  mutate(
+    x = str_glue("<strong>{university}</strong><br>{degree} in {major}"), 
+    y = str_glue("{location}<br>{end}")
+  ) |> 
+  select(x, y) |> 
+  kbl(
+    escape = FALSE,
+    col.names = NULL,
+    align = c('l', 'r')
+  ) |>
+  kable_styling(full_width = TRUE)
+
+```
+
+::::::
+
+:::::: {.content-visible when-meta="params.publications"}
+
+## {{< fa book >}} Publications
+
+#### *Peer-reviewed journal articles*
+
+```{r}
+
+bib |> 
+  filter(collection == "Article") |> 
+  format_entries(buttons = FALSE) |> 
+  make_blocks()
+
+```
+
+#### *Manuscripts*
+
+```{r}
+
+bib |> 
+  filter(collection == "Manuscript") |> 
+  format_entries(buttons = FALSE) |> 
+  make_blocks()
+
+```
+
+#### *Book reviews*
+
+```{r}
+
+bib |> 
+  filter(collection == "Review") |> 
+  format_entries(buttons = FALSE) |> 
+  make_blocks()
+
+```
+
+#### *Technical reports*
+
+```{r}
+
+bib |> 
+  filter(collection == "Report") |> 
+  format_entries(buttons = FALSE) |> 
+  make_blocks()
+
+```
+
+::::::
+
+:::::: {.content-visible when-meta="params.funding"}
+
+## {{< fa hand-holding-usd >}} Grants, Fellowships, and Awards
+
+```{r}
+
+read_sheet(google_page_id, sheet = "funding") |> 
+  filter(result == "Awarded") |> 
+  mutate(collection = "Funding") |> 
+  format_entries(buttons = FALSE) |> 
+  make_blocks()
+
+```
+::::::
+
+:::::: {.content-visible when-meta="params.presentations"}
+
+## {{< fa desktop >}} Presentations
+
+```{r}
+
+bib |> 
+  filter(collection == "Presentation") |> 
+  format_entries(buttons = FALSE) |> 
+  make_blocks()
+
+```
+
+::::::
+
+:::::: {.content-visible when-meta="params.teaching"} 
+
+## {{< fa chalkboard-teacher >}} Teaching {#teaching}
+
+:::::: blocks
+::: {.cv-chunk style="margin-bottom:1em;"}
+**Teaching interests**. Behavioral Ecology, Human Ecology, Human Prehistory,
+Hunter-Gatherers, Conservation & Sustainability, Ethnoarchaeology, GIS/Spatial
+Analysis, Quantitative Data Analysis, Archaeological Method & Theory, North
+American Prehistory
+:::
+
+```{r}
+
+read_sheet(google_page_id, sheet = "teaching") |> 
+  group_by(university, department) |> 
+  arrange(year, .by_group = TRUE) |> 
+  summarize(
+    courses = paste0(str_glue(
+      
+      "<li>{year} {semester} <strong>{position}</strong>. {course} </li>"
+      
+    ), collapse = "\n")
+  ) |> 
+  rowwise() |> 
+  mutate(
+    teaching = str_glue(
+      
+      "<p>{university}, Department of {department}</p><ul>{courses}</ul>"
+      
+    ),
+  ) |> 
+  ungroup() |> 
+  pull(teaching) |> 
+  HTML() |> 
+  div(class = "cv-chunk")
+
+```
+
+::::::
+::::::
+
+:::::: {.content-visible when-meta="params.affiliations"}
+
+## {{< fa people-arrows >}} Professional Affiliations {#affiliations}
+
+::: cv-chunk
+```{r}
+
+read_sheet(google_page_id, sheet = "affiliations") |> 
+  mutate(
+    end = ifelse(is.na(end), "present", end),
+    x = str_glue("<a href='{url}'>{organization}</a>"), 
+    y = str_glue("{start}-{end}")
+  ) |> 
+  select(x, y) |> 
+  kbl(
+    escape = FALSE,
+    col.names = NULL,
+    align = c('l', 'r')
+  ) |>
+  kable_styling(full_width = TRUE)
+
+```
+:::
+::::::
+
+:::::: {.content-visible when-meta="params.synergy"}
+
+## {{< fa hands-helping >}} Service, Outreach, and Other Activities
+
+#### *University of Colorado, Boulder*
+
+```{r}
+#| eval: !expr params[["synergy"]]
+
+read_sheet(google_page_id, sheet = "synergy") |> 
+  filter(
+    type == "university service", 
+    university == "University of Colorado"
+  ) |> 
+  mutate(
+    collection = "Synergy",
+    status = ifelse(
+      status == "active",
+      paste0("<span style='color: #2B8A12; font-weight: bold;'>", status, "</span>"),
+      paste0("<strong>", status, "</strong>")
+    ),
+    status = map(status, HTML)
+  ) |> 
+  format_entries(buttons = FALSE) |> 
+  make_blocks()
+  
+```
+
+#### *University of Utah*
+
+```{r}
+#| eval: !expr params[["synergy"]]
+
+read_sheet(google_page_id, sheet = "synergy") |> 
+  filter(
+    type == "university service", 
+    university == "University of Utah"
+  ) |> 
+  mutate(
+    collection = "Synergy",
+    status = ifelse(
+      status == "active",
+      paste0("<span style='color: #2B8A12; font-weight: bold;'>", status, "</span>"),
+      paste0("<strong>", status, "</strong>")
+    ),
+    status = map(status, HTML)
+  ) |> 
+  format_entries(buttons = FALSE) |> 
+  make_blocks()
+  
+```
+
+#### *Outreach*
+
+```{r}
+#| eval: !expr params[["synergy"]]
+
+read_sheet(google_page_id, sheet = "synergy") |> 
+  filter(type == "outreach") |> 
+  mutate(
+    collection = "Synergy",
+    status = ifelse(
+      status == "active",
+      paste0("<span style='color: #2B8A12; font-weight: bold;'>", status, "</span>"),
+      paste0("<strong>", status, "</strong>")
+    ),
+    status = map(status, HTML)
+  ) |> 
+  format_entries(buttons = FALSE) |> 
+  make_blocks()
+  
+```
+
+::::::
+
+:::::: {.content-visible when-meta="params.committees"}
+::::::
+
+:::::: {.content-visible when-meta="params.students"}
+::::::
+
+:::::: {.content-visible when-meta="params.development"}
+::::::
+
+:::::: {.content-visible when-meta="params.fieldwork"}
+## {{< fa hiking >}} Fieldwork
+
+*Multi-year projects are repeated with the number of weeks worked each year.*
+
+```{r}
+#| eval: !expr params[["fieldwork"]]
+
+read_sheet(google_page_id, sheet = "fieldwork") |>
+  arrange(desc(year)) |>
+  mutate(collection = "Fieldwork") |> 
+  format_entries(buttons = FALSE) |> 
+  make_blocks()
+
+```
+::::::
+
+## {{< fa envelope >}} References
+
+*Available upon request.*
+
+:::::::::
