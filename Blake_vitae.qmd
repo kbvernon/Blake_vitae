@@ -37,7 +37,6 @@ box::use(
   googlesheets4[read_sheet],
   here[here],
   htmltools[div, HTML],
-  icons[...],
   kableExtra[kbl, kable_styling],
   knitr[...],
   purrr[map],
@@ -70,10 +69,10 @@ Boulder, CO 80302
 :::
 
 ::: {#social}
-[kbvernon.io](https://www.kbvernon.io/) {{< fa portrait >}}  
-[kbvernon](https://github.com/kbvernon) {{< fa brands github >}}  
-[0000-0003-0098-5092](https://orcid.org/0000-0003-0098-5092) {{< ai orcid >}}  
-[2PE4za4AAAAJ](https://scholar.google.com/citations?user=2PE4za4AAAAJ&hl=en) {{< ai google-scholar >}}  
+[kbvernon.io](https://www.kbvernon.io/) {{< iconify fa6-solid:image-portrait >}}  
+[kbvernon](https://github.com/kbvernon) {{< iconify fa:github >}}  
+[0000-0003-0098-5092](https://orcid.org/0000-0003-0098-5092) {{< iconify academicons:orcid >}}  
+[2PE4za4AAAAJ](https://scholar.google.com/citations?user=2PE4za4AAAAJ&hl=en) {{< iconify academicons:google-scholar >}}  
 :::
 :::::::::
 
@@ -84,7 +83,7 @@ CV last updated on `r Sys.Date()`
 ::::::::: {#main}
 :::::: {.content-visible when-meta="params.appointments"}
 
-## {{< fa briefcase >}} Appointments
+## {{< iconify fa-solid:briefcase >}} Appointments
 
 ```{r}
 
@@ -109,7 +108,7 @@ read_sheet(google_page_id, sheet = "appointments")  |>
 
 :::::: {.content-visible when-meta="params.education"}
 
-## {{< fa graduation-cap >}} Education
+## {{< iconify fa-solid:graduation-cap >}} Education
 
 ```{r}
 
@@ -132,7 +131,7 @@ read_sheet(google_page_id, sheet = "education") |>
 
 :::::: {.content-visible when-meta="params.publications"}
 
-## {{< fa book >}} Publications
+## {{< iconify fa6-solid:book >}} Publications
 
 #### *Peer-reviewed journal articles*
 
@@ -182,7 +181,7 @@ bib |>
 
 :::::: {.content-visible when-meta="params.funding"}
 
-## {{< fa hand-holding-usd >}} Grants, Fellowships, and Awards
+## {{< iconify fa-solid:hand-holding-usd >}} Grants, Fellowships, and Awards
 
 ```{r}
 
@@ -197,7 +196,7 @@ read_sheet(google_page_id, sheet = "funding") |>
 
 :::::: {.content-visible when-meta="params.presentations"}
 
-## {{< fa desktop >}} Presentations
+## {{< iconify fa6-solid:desktop >}} Presentations
 
 ```{r}
 
@@ -212,7 +211,7 @@ bib |>
 
 :::::: {.content-visible when-meta="params.teaching"} 
 
-## {{< fa chalkboard-teacher >}} Teaching {#teaching}
+## {{< iconify fa-solid:chalkboard-teacher >}} Teaching {#teaching}
 
 :::::: blocks
 ::: {.cv-chunk style="margin-bottom:1em;"}
@@ -254,7 +253,7 @@ read_sheet(google_page_id, sheet = "teaching") |>
 
 :::::: {.content-visible when-meta="params.affiliations"}
 
-## {{< fa people-arrows >}} Professional Affiliations {#affiliations}
+## {{< iconify fa-solid:people-arrows >}} Professional Affiliations {#affiliations}
 
 ::: cv-chunk
 ```{r}
@@ -279,7 +278,7 @@ read_sheet(google_page_id, sheet = "affiliations") |>
 
 :::::: {.content-visible when-meta="params.synergy"}
 
-## {{< fa hands-helping >}} Service, Outreach, and Other Activities
+## {{< iconify fa-solid:hands-helping >}} Service, Outreach, and Other Activities
 
 #### *University of Colorado, Boulder*
 
@@ -362,7 +361,7 @@ read_sheet(google_page_id, sheet = "synergy") |>
 ::::::
 
 :::::: {.content-visible when-meta="params.fieldwork"}
-## {{< fa hiking >}} Fieldwork
+## {{< iconify fa6-solid:person-hiking >}} Fieldwork
 
 *Multi-year projects are repeated with the number of weeks worked each year.*
 
@@ -378,7 +377,7 @@ read_sheet(google_page_id, sheet = "fieldwork") |>
 ```
 ::::::
 
-## {{< fa envelope >}} References
+## {{< iconify fa6-solid:envelope >}} References
 
 *Available upon request.*
 

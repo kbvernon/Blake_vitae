@@ -208,14 +208,12 @@ td {
   box-shadow: none;
 }
 
-#social svg {
-  width: 1.1em;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 0.1em;
+#social iconify-icon {
+  width: 18px;
+  padding-left: 2px;
 }
 
-#main svg {
+#main iconify-icon {
   padding-right: 0.3em;
 }
 
