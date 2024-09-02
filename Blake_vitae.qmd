@@ -31,6 +31,7 @@ params:
 ---
 
 ```{r}
+#| include: false
 
 box::use(
   dplyr[...],
@@ -144,16 +145,18 @@ bib |>
 
 ```
 
-#### *Manuscripts*
+<!-- #### *Manuscripts*
 
 ```{r}
+#| eval: false
 
 bib |> 
   filter(collection == "Manuscript") |> 
   format_entries(buttons = FALSE) |> 
   make_blocks()
 
-```
+``` 
+-->
 
 #### *Book reviews*
 
